@@ -1,8 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind screens;
-@tailwind utilities;
-
 .article svg {
   display: inline-block;
 }
