@@ -63,7 +63,7 @@ export default function ResponsiveDrawer({ children }: { children: any }) {
               },
             }}
             button
-            selected={index === 0}
+            selected={index === 1}
             key={text}
           >
             <ListItemText primary={text} />
