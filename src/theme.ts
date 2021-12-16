@@ -3,30 +3,71 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#556cd6",
+      main: "#007fff",
     },
     secondary: {
-      main: "#19857b",
-    },
-    background: {
-      default: "#f0f0f0",
+      main: "#f50057",
     },
   },
+  typography: {
+    fontFamily: "Inter",
+    h1: {
+      fontWeight: 700,
+    },
+    h2: {
+      fontWeight: 700,
+    },
+    h3: {
+      fontWeight: 700,
+    },
+    h4: {
+      fontWeight: 700,
+    },
+    h5: {
+      fontWeight: 700,
+    },
+    h6: {
+      fontWeight: 700,
+    },
+    subtitle1: {
+      fontWeight: 700,
+    },
+    subtitle2: {
+      fontWeight: 700,
+    },
+    button: {
+      fontWeight: 700,
+    },
+  },
+  components: {
+    MuiAppBar: {
+      defaultProps: {
+        elevation: 0,
+      },
+    },
+    MuiCard: {
+      defaultProps: {
+        raised: false,
+        variant: "outlined",
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+        // disableRipple: true,
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+  },
+
   shape: {
     borderRadius: 8,
   },
-  components: {
-/*     MuiList: {
-      styleOverrides: {
-        root: {
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          px: "8px",
-        },
-      },
-    }, */
-  },
+  spacing: 8,
 });
 
 export default theme;

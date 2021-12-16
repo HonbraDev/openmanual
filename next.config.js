@@ -1,7 +1,11 @@
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx$/,
-});
-
-module.exports = withMDX({
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-});
+/** @type {import('next').NextConfig} */
+module.exports = {
+  reactStrictMode: true,
+  redirects: [
+    {
+      source: "/",
+      destination: "/o-projektu",
+      permanent: true,
+    },
+  ],
+};
