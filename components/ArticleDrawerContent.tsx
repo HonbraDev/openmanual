@@ -8,7 +8,10 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material";
 
 /**
  * Renders the content of the sidebar drawer
@@ -30,6 +33,19 @@ const ArticleDrawerContent = ({
           </Typography>
         </Link>
       </Toolbar>
+      <Divider />
+      <TextField
+        variant="standard"
+        placeholder="Hledat..."
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon fontSize="small" />
+            </InputAdornment>
+          ),
+        }}
+        sx={{ m: 1 }}
+      />
       <Divider />
       {pages
         .map((section, i) => (
