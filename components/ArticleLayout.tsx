@@ -29,11 +29,13 @@ const Layout = ({
   title,
   drawerPages,
   currentRoute,
+  unorderedPages,
 }: {
   children: any;
   title: string;
   drawerPages: Page[][];
   currentRoute: string;
+  unorderedPages: Page[];
 }) => {
   const drawerWidth = 240;
 
@@ -48,7 +50,11 @@ const Layout = ({
   const container = process.browser ? () => window.document.body : undefined;
 
   const drawerContent = (
-    <ArticleDrawerContent pages={drawerPages} currentRoute={currentRoute} />
+    <ArticleDrawerContent
+      pages={drawerPages}
+      currentRoute={currentRoute}
+      unorderedPages={unorderedPages}
+    />
   );
 
   return (

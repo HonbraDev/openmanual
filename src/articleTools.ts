@@ -32,6 +32,7 @@ export function getAllArticles(): ArticlePreview[] {
       return {
         title: article.meta.title,
         slug: article.slug,
+        tags: article.meta.tags,
       };
     });
 }
@@ -59,4 +60,5 @@ export interface ArticleMeta {
 export interface ArticlePreview {
   title?: string;
   slug: string;
+  tags?: string[];
 }

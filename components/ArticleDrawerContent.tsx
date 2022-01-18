@@ -1,4 +1,5 @@
 import Link from "./Link";
+import Fuse from "fuse.js";
 
 import {
   Box,
@@ -12,6 +13,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
+import { useMemo, useState } from "react";
 
 /**
  * Renders the content of the sidebar drawer
@@ -20,10 +22,20 @@ import { Search as SearchIcon } from "@mui/icons-material";
 const ArticleDrawerContent = ({
   pages,
   currentRoute,
+  unorderedPages,
 }: {
   pages: Page[][];
   currentRoute: string;
+  unorderedPages: Page[];
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const fuse = new Fuse<Page>(unorderedPages, {
+    keys: ["title", "tags"],
+  });
+  const fileted = useMemo(
+    () => (searchTerm ? fuse.search(searchTerm) : []),
+    [searchTerm]
+  );
   return (
     <Box>
       <Toolbar>
@@ -35,6 +47,8 @@ const ArticleDrawerContent = ({
       </Toolbar>
       <Divider />
       <TextField
+        value={searchTerm}
+        onChange={({ target }) => setSearchTerm(target.value)}
         variant="standard"
         placeholder="Hledat..."
         InputProps={{
@@ -47,33 +61,24 @@ const ArticleDrawerContent = ({
         sx={{ m: 1 }}
       />
       <Divider />
-      {pages
-        .map((section, i) => (
-          <List key={i}>
-            {section.map((page) => (
-              <Link
-                key={page.route}
-                href={page.route}
-                underline="none"
-                color="inherit"
-              >
-                <ListItemButton
-                  selected={page.route === currentRoute}
-                  disableRipple={false}
-                >
-                  <ListItemText>{page.title}</ListItemText>
-                </ListItemButton>
-              </Link>
-            ))}
-          </List>
-        ))
-        .reduce((previous, current) => (
-          <>
-            {previous}
-            <Divider />
-            {current}
-          </>
-        ))}
+      {searchTerm !== "" ? (
+        <PageList
+          pages={fileted.map((a) => a.item)}
+          currentRoute={currentRoute}
+        />
+      ) : (
+        pages
+          .map((section, i) => (
+            <PageList key={i} pages={section} currentRoute={currentRoute} />
+          ))
+          .reduce((previous, current) => (
+            <>
+              {previous}
+              <Divider />
+              {current}
+            </>
+          ))
+      )}
     </Box>
   );
 };
@@ -86,4 +91,33 @@ export default ArticleDrawerContent;
 export interface Page {
   title: string;
   route: string;
+  tags: string[];
 }
+
+const PageList = ({
+  pages,
+  currentRoute,
+}: {
+  pages: Page[];
+  currentRoute: string;
+}) => {
+  return (
+    <List>
+      {pages.map((page) => (
+        <Link
+          key={page.route}
+          href={page.route}
+          underline="none"
+          color="inherit"
+        >
+          <ListItemButton
+            selected={page.route === currentRoute}
+            disableRipple={false}
+          >
+            <ListItemText>{page.title}</ListItemText>
+          </ListItemButton>
+        </Link>
+      ))}
+    </List>
+  );
+};
