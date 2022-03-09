@@ -6,9 +6,3 @@ const websiteContext = createContext<{ pages: ArticlePreview[] }>({
 });
 
 export default websiteContext;
-
-/* 
-Article previews
-Current article
-Current route
-*/

@@ -7,13 +7,13 @@ import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { ArticleMeta } from "../src/articleTools";
 
-const Article: NextPage<ArticleProps> = ({ meta, source }) => {
+const Article: NextPage<ArticlePageProps> = ({ meta, source }) => {
   return <ArticleContent meta={meta} source={source} />;
 };
 
 export default Article;
 
-export const getStaticProps: GetStaticProps<ArticleProps> = async (context) => {
+export const getStaticProps: GetStaticProps<ArticlePageProps> = async (context) => {
   const slug = context.params!.slug as string;
   const source = getArticleBySlug(slug);
   const mdxSource = await serialize(source.content);
@@ -35,7 +35,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export interface ArticleProps {
+export interface ArticlePageProps {
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
   meta: Partial<ArticleMeta>;
 }

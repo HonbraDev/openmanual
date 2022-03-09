@@ -4,14 +4,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import createEmotionCache from "../src/createEmotionCache";
 import initialTheme from "../src/theme";
 import websiteContext from "../src/websiteContext";
+import Layout from "../components/ArticleLayout";
 
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { createTheme, useMediaQuery } from "@mui/material";
+import { useMemo } from "react";
 
 import type { AppProps as NextAppProps } from "next/app";
-import { useMemo } from "react";
-import Layout from "../components/ArticleLayout";
 
 const clientSideEmotionCache = createEmotionCache();
 
