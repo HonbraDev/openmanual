@@ -9,7 +9,6 @@
 - [ ] Make the dev navigation faster
 - [ ] SEO
 - [x] Search
-  - [ ] Make tag search work
-  - [ ] Make toggleable content search
+  - [x] Make tag search work
 - [ ] Generally optimize
 - [ ] Add comments
