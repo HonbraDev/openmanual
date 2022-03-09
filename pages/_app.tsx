@@ -1,26 +1,29 @@
 // https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/pages/_app.tsx
-import * as React from "react";
 import Head from "next/head";
-import { AppProps } from "next/app";
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { CacheProvider, EmotionCache } from "@emotion/react";
 import createEmotionCache from "../src/createEmotionCache";
 import initialTheme from "../src/theme";
+import websiteContext from "../src/websiteContext";
+
+import { ThemeProvider } from "@mui/material/styles";
+import { CacheProvider, EmotionCache } from "@emotion/react";
 import { createTheme, useMediaQuery } from "@mui/material";
 
-// Client-side cache, shared for the whole session of the user in the browser.
+import type { AppProps as NextAppProps } from "next/app";
+import { useMemo } from "react";
+import Layout from "../components/ArticleLayout";
+
 const clientSideEmotionCache = createEmotionCache();
 
-interface MyAppProps extends AppProps {
+interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
 }
 
-export default function MyApp(props: MyAppProps) {
+export default function MyApp(props: AppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const theme = React.useMemo(
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const theme = useMemo(
     () =>
       createTheme({
         ...initialTheme,
@@ -31,6 +34,7 @@ export default function MyApp(props: MyAppProps) {
       }),
     [prefersDarkMode]
   );
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -38,9 +42,27 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <websiteContext.Provider
+          value={{
+            pages: [
+              {
+                title: "Hello, world!",
+                slug: "hello",
+                tags: ["hello", "world", "computer", "virus"],
+              },
+              {
+                title: "O projektu",
+                slug: "o-projektu",
+                tags: [],
+              },
+            ],
+          }}
+        >
+          <Layout title="Article">
+            <Component {...pageProps} />
+          </Layout>
+        </websiteContext.Provider>
       </ThemeProvider>
     </CacheProvider>
   );

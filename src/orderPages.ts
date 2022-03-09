@@ -1,10 +1,10 @@
-import type { Page } from "../components/ArticleDrawerContent";
+import type { ArticlePreview } from "./articleTools";
 
-const stickied = ["/domu", "/o-projektu"];
+const stickied = ["domu", "o-projektu"];
 
-function orderPages(pages: Page[]): Page[][] {
+function orderPages(pages: ArticlePreview[]): ArticlePreview[][] {
   const orderedPages = pages
-    .filter((page) => !stickied.includes(page.route))
+    .filter((page) => !stickied.includes(page.slug))
     .sort((a, b) => {
       if (a.title < b.title) return -1;
       if (a.title > b.title) return 1;
@@ -12,8 +12,8 @@ function orderPages(pages: Page[]): Page[][] {
     });
 
   const stickiedPages = pages
-    .filter((page) => stickied.includes(page.route))
-    .sort((a, b) => stickied.indexOf(a.route) - stickied.indexOf(b.route));
+    .filter((page) => stickied.includes(page.slug))
+    .sort((a, b) => stickied.indexOf(a.slug) - stickied.indexOf(b.slug));
 
   return [stickiedPages, orderedPages];
 }

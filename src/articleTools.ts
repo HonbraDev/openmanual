@@ -30,9 +30,9 @@ export function getAllArticles(): ArticlePreview[] {
     .map((file) => {
       const article = getArticleBySlug(file);
       return {
-        title: article.meta.title,
+        title: article.meta.title || "",
         slug: article.slug,
-        tags: article.meta.tags,
+        tags: article.meta.tags || [],
       };
     });
 }
@@ -58,7 +58,7 @@ export interface ArticleMeta {
  * An article preview, returned by getAllArticles
  */
 export interface ArticlePreview {
-  title?: string;
+  title: string;
   slug: string;
-  tags?: string[];
+  tags: string[];
 }

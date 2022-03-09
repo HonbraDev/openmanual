@@ -15,28 +15,14 @@ import {
 
 import { useState } from "react";
 import { Menu as MenuIcon } from "@mui/icons-material";
-
-import type { Page } from "./ArticleDrawerContent";
+import { useRouter } from "next/router";
 
 /**
  * The main layout of the site, containing the header and the sidebar
- * @param children The content of the page
- * @param title The title of the page
+ * @param props The content and title of the page
  * @returns The children wrapped in the layout
  */
-const Layout = ({
-  children,
-  title,
-  drawerPages,
-  currentRoute,
-  unorderedPages,
-}: {
-  children: any;
-  title: string;
-  drawerPages: Page[][];
-  currentRoute: string;
-  unorderedPages: Page[];
-}) => {
+const Layout = ({ children, title }: { children: any; title: string }) => {
   const drawerWidth = 240;
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,13 +35,10 @@ const Layout = ({
 
   const container = process.browser ? () => window.document.body : undefined;
 
-  const drawerContent = (
-    <ArticleDrawerContent
-      pages={drawerPages}
-      currentRoute={currentRoute}
-      unorderedPages={unorderedPages}
-    />
-  );
+  const router = useRouter();
+  const currentSlug = (router.query.slug as string) || "";
+
+  const drawerContent = <ArticleDrawerContent currentSlug={currentSlug} />;
 
   return (
     <Box sx={{ display: "flex" }}>

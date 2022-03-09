@@ -1,5 +1,7 @@
 import Link from "./Link";
 import Fuse from "fuse.js";
+import websiteContext from "../src/websiteContext";
+import orderPages from "../src/orderPages";
 
 import {
   Box,
@@ -12,30 +14,30 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+
 import { Search as SearchIcon } from "@mui/icons-material";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
+
+import type { ArticlePreview } from "../src/articleTools";
 
 /**
  * Renders the content of the sidebar drawer
  * @returns The content of the sidebar drawer
  */
-const ArticleDrawerContent = ({
-  pages,
-  currentRoute,
-  unorderedPages,
-}: {
-  pages: Page[][];
-  currentRoute: string;
-  unorderedPages: Page[];
-}) => {
+const ArticleDrawerContent = ({ currentSlug }: { currentSlug: string }) => {
+  const { pages } = useContext(websiteContext);
+  const orderedPages = useMemo(() => orderPages(pages), [pages]);
+
   const [searchTerm, setSearchTerm] = useState("");
-  const fuse = new Fuse<Page>(unorderedPages, {
+  const fuse = new Fuse<ArticlePreview>(pages, {
     keys: ["title", "tags"],
   });
+
   const fileted = useMemo(
     () => (searchTerm ? fuse.search(searchTerm) : []),
     [searchTerm]
   );
+
   return (
     <Box>
       <Toolbar>
@@ -64,12 +66,12 @@ const ArticleDrawerContent = ({
       {searchTerm !== "" ? (
         <PageList
           pages={fileted.map((a) => a.item)}
-          currentRoute={currentRoute}
+          currentSlug={currentSlug}
         />
       ) : (
-        pages
+        orderedPages
           .map((section, i) => (
-            <PageList key={i} pages={section} currentRoute={currentRoute} />
+            <PageList key={i} pages={section} currentSlug={currentSlug} />
           ))
           .reduce((previous, current) => (
             <>
@@ -85,33 +87,19 @@ const ArticleDrawerContent = ({
 
 export default ArticleDrawerContent;
 
-/**
- * A page in the sidebar drawer
- */
-export interface Page {
-  title: string;
-  route: string;
-  tags: string[];
-}
-
 const PageList = ({
   pages,
-  currentRoute,
+  currentSlug,
 }: {
-  pages: Page[];
-  currentRoute: string;
+  pages: ArticlePreview[];
+  currentSlug: string;
 }) => {
   return (
     <List>
       {pages.map((page) => (
-        <Link
-          key={page.route}
-          href={page.route}
-          underline="none"
-          color="inherit"
-        >
+        <Link key={page.slug} href={page.slug} underline="none" color="inherit">
           <ListItemButton
-            selected={page.route === currentRoute}
+            selected={page.slug === currentSlug}
             disableRipple={false}
           >
             <ListItemText>{page.title}</ListItemText>
