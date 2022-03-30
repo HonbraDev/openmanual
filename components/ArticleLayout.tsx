@@ -17,12 +17,22 @@ import { useState } from "react";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
+import type { ArticlePreview } from "../src/articleTools";
+
 /**
  * The main layout of the site, containing the header and the sidebar
  * @param props The content and title of the page
  * @returns The children wrapped in the layout
  */
-const Layout = ({ children, title }: { children: any; title: string }) => {
+const Layout = ({
+  children,
+  title,
+  pages,
+}: {
+  children: any;
+  title: string;
+  pages: ArticlePreview[];
+}) => {
   const drawerWidth = 240;
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,7 +48,9 @@ const Layout = ({ children, title }: { children: any; title: string }) => {
   const router = useRouter();
   const currentSlug = (router.query.slug as string) || "";
 
-  const drawerContent = <ArticleDrawerContent currentSlug={currentSlug} />;
+  const drawerContent = (
+    <ArticleDrawerContent currentSlug={currentSlug} pages={pages} />
+  );
 
   return (
     <Box sx={{ display: "flex" }}>

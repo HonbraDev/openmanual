@@ -1,6 +1,5 @@
 import Link from "./Link";
 import Fuse from "fuse.js";
-import websiteContext from "../src/websiteContext";
 import orderPages from "../src/orderPages";
 
 import {
@@ -24,8 +23,13 @@ import type { ArticlePreview } from "../src/articleTools";
  * Renders the content of the sidebar drawer
  * @returns The content of the sidebar drawer
  */
-const ArticleDrawerContent = ({ currentSlug }: { currentSlug: string }) => {
-  const { pages } = useContext(websiteContext);
+const ArticleDrawerContent = ({
+  currentSlug,
+  pages,
+}: {
+  currentSlug: string;
+  pages: ArticlePreview[];
+}) => {
   const orderedPages = useMemo(() => orderPages(pages), [pages]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -97,7 +101,12 @@ const PageList = ({
   return (
     <List>
       {pages.map((page) => (
-        <Link key={page.slug} href={page.slug} underline="none" color="inherit">
+        <Link
+          key={page.slug}
+          href={`/${page.slug}`}
+          underline="none"
+          color="inherit"
+        >
           <ListItemButton
             selected={page.slug === currentSlug}
             disableRipple={false}

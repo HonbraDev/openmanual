@@ -3,13 +3,12 @@ import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
 import createEmotionCache from "../src/createEmotionCache";
 import initialTheme from "../src/theme";
-import websiteContext from "../src/websiteContext";
 import Layout from "../components/ArticleLayout";
 
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { createTheme, useMediaQuery } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import type { AppProps as NextAppProps } from "next/app";
 
@@ -35,34 +34,33 @@ export default function MyApp(props: AppProps) {
     [prefersDarkMode]
   );
 
+  const [pageTitle, setPageTitle] = useState("");
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>OpenManual</title>
+        <title>{pageTitle} - OpenManual</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <websiteContext.Provider
-          value={{
-            pages: [
-              {
-                title: "Hello, world!",
-                slug: "hello",
-                tags: ["hello", "world", "computer", "virus"],
-              },
-              {
-                title: "O projektu",
-                slug: "o-projektu",
-                tags: [],
-              },
-            ],
-          }}
+        <Layout
+          title={pageTitle}
+          pages={[
+            {
+              title: "Hello, world!",
+              slug: "hello",
+              tags: ["hello", "world", "computer", "virus"],
+            },
+            {
+              title: "O projektu",
+              slug: "o-projektu",
+              tags: [],
+            },
+          ]}
         >
-          <Layout title="Article">
-            <Component {...pageProps} />
-          </Layout>
-        </websiteContext.Provider>
+          <Component {...pageProps} setTitle={setPageTitle} />
+        </Layout>
       </ThemeProvider>
     </CacheProvider>
   );
