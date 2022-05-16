@@ -1,6 +1,6 @@
 # openmanual
 
-## To-Do (or at least nice to have)
+## To-do (or at least nice to have)
 
 - [x] Clean up the types and helper functions
 - [x] Clean up file names
@@ -12,8 +12,10 @@
 - [ ] Automatically scrape page metadata
 - [ ] Add proper 404 navigation
 - [ ] Dark mode
-- [ ] SEO - Copy from HonbraDev/honbra-web
+- [ ] Make a favicon
+- [x] SEO - Copy from HonbraDev/honbra-web
+  - [ ] Add OG image
 - [ ] Make the dev navigation faster
 - [ ] Stop spamming commits and pushing to prod - never
 - [ ] Generally optimize
-- [ ] Add comments
+- [x] Add comments

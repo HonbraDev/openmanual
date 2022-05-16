@@ -3,7 +3,7 @@ import createEmotionCache from "../src/createEmotionCache";
 import CssBaseline from "@mui/material/CssBaseline";
 import Layout from "../components/ArticleLayout";
 import initialTheme from "../src/theme";
-import Head from "next/head";
+import Seo from "../components/Seo";
 
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { createTheme, useMediaQuery } from "@mui/material";
@@ -43,10 +43,7 @@ export default function MyApp(props: AppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head>
-        <title>{pageTitle} - OpenManual</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
+      <Seo title={pageTitle} />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout
