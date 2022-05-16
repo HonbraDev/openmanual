@@ -1,15 +1,15 @@
 import ArticleTags from "./ArticleTags";
 
-import { MDXRemote } from "next-mdx-remote";
 import { Box, Typography } from "@mui/material";
+import { MDXRemote } from "next-mdx-remote";
 
-import type { Article } from "../src/articleTools";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
+import type { Article } from "../src/articleTools";
 
 /**
- * The actual article content rendered in React. (title, body, etc.)
+ * Renders the article (title, body, etc.)
  * @param props Article source and meta, as defined in /pages/[slug].tsx
- * @returns The article content.
+ * @returns The article content
  */
 const ArticleContent = ({
   source,

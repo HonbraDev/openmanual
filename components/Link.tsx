@@ -1,9 +1,11 @@
 // https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/components/Link.tsx
-import * as React from "react";
-import clsx from "clsx";
-import { useRouter } from "next/router";
+
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import MuiLink, { LinkProps as MuiLinkProps } from "@mui/material/Link";
+import * as React from "react";
+import clsx from "clsx";
+
+import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
 
 // Add support for the sx prop for consistency with the other branches.
@@ -15,6 +17,9 @@ interface NextLinkComposedProps
   to: NextLinkProps["href"];
   linkAs?: NextLinkProps["as"];
   href?: NextLinkProps["href"];
+  // TypeScript fix
+  onMouseEnter?: NextLinkProps["onMouseEnter"];
+  onClick?: NextLinkProps["onClick"];
 }
 
 export const NextLinkComposed = React.forwardRef<
@@ -59,6 +64,10 @@ export type LinkProps = {
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
+
+/**
+ * A MUI Link component that supports Next.js links
+ */
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   props,
   ref

@@ -1,14 +1,19 @@
 import ArticleContent from "../components/ArticleContent";
 
-import { serialize } from "next-mdx-remote/serialize";
 import { getArticleBySlug, getAllArticles } from "../src/articleTools";
+import { serialize } from "next-mdx-remote/serialize";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { ArticleMeta } from "../src/articleTools";
-import { useEffect } from "react";
 
+/**
+ * This component represents each article
+ * @param param0 Props returned by getStaticProps
+ * @returns The page
+ */
 const Article: NextPage<ArticlePageProps> = ({ meta, source, setTitle }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -23,6 +28,11 @@ const Article: NextPage<ArticlePageProps> = ({ meta, source, setTitle }) => {
 
 export default Article;
 
+/**
+ * Gets the article meta
+ * @param context Request context
+ * @returns Props for the current page
+ */
 export const getStaticProps: GetStaticProps<ArticlePageProps> = async (
   context
 ) => {
@@ -37,6 +47,10 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async (
   };
 };
 
+/**
+ * Fetches all articles
+ * @returns All page slugs
+ */
 export const getStaticPaths: GetStaticPaths = async () => {
   const articles = getAllArticles();
   return {
@@ -47,6 +61,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+/**
+ * Props returned by getStaticProps
+ */
 export interface ArticlePageProps {
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
   meta: Partial<ArticleMeta>;

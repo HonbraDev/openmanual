@@ -1,6 +1,6 @@
+import orderPages from "../src/orderPages";
 import Link from "./Link";
 import Fuse from "fuse.js";
-import orderPages from "../src/orderPages";
 
 import {
   Box,
@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 
 import { Search as SearchIcon } from "@mui/icons-material";
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import type { ArticlePreview } from "../src/articleTools";
 
@@ -91,6 +91,11 @@ const ArticleDrawerContent = ({
 
 export default ArticleDrawerContent;
 
+/**
+ * Render a list of pages
+ * @param props The list of pages as an array and the current slug
+ * @returns The list of pages as a React component
+ */
 const PageList = ({
   pages,
   currentSlug,

@@ -1,10 +1,14 @@
 // https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/pages/_document.tsx
-import * as React from "react";
+
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
-import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
+import theme from "../src/theme";
+import * as React from "react";
 
+/**
+ * This component represents the raw HTML of the page
+ */
 export default class MyDocument extends Document {
   render() {
     return (

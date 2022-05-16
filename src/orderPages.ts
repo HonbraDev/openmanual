@@ -2,6 +2,11 @@ import type { ArticlePreview } from "./articleTools";
 
 const stickied = ["domu", "o-projektu"];
 
+/**
+ * Orders the pages in the order they should appear in the menu
+ * @param pages An array of article previews
+ * @returns A 2D array of article previews, with stickied articles at the top
+ */
 function orderPages(pages: ArticlePreview[]): ArticlePreview[][] {
   const orderedPages = pages
     .filter((page) => !stickied.includes(page.slug))

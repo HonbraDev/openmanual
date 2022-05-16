@@ -1,7 +1,7 @@
 import matter from "gray-matter";
 
-import { join } from "path";
 import { readdirSync, readFileSync } from "fs";
+import { join } from "path";
 
 const docsDirectory = join(process.cwd(), "docs");
 
@@ -21,6 +21,7 @@ export function getArticleBySlug(slug: string): Article {
 
 /**
  * Get all articles' titles and slugs
+ * @returns An array of articles, each with a title and slug
  */
 export function getAllArticles(): ArticlePreview[] {
   const files = readdirSync(docsDirectory);

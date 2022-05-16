@@ -1,5 +1,10 @@
 import { Box, Typography } from "@mui/material";
 
+/**
+ * Renders the tags of an article
+ * @param props The tags to render
+ * @returns The rendered tags
+ */
 const ArticleTags = ({ tags }: { tags: string[] }) => {
   return (
     <Box sx={{ my: 2, display: "flex", gap: 1 }}>

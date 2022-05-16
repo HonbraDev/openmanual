@@ -1,14 +1,14 @@
 // https://github.com/mui-org/material-ui/blob/master/examples/nextjs-with-typescript/src/pages/_app.tsx
-import Head from "next/head";
-import CssBaseline from "@mui/material/CssBaseline";
 import createEmotionCache from "../src/createEmotionCache";
-import initialTheme from "../src/theme";
+import CssBaseline from "@mui/material/CssBaseline";
 import Layout from "../components/ArticleLayout";
+import initialTheme from "../src/theme";
+import Head from "next/head";
 
-import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { createTheme, useMediaQuery } from "@mui/material";
 import { useMemo, useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
 
 import type { AppProps as NextAppProps } from "next/app";
 
@@ -18,6 +18,11 @@ interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
 }
 
+/**
+ * This component wraps every page with navigation elements
+ * @param props Props for the current page
+ * @returns Wrapped page
+ */
 export default function MyApp(props: AppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
