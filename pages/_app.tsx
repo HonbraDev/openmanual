@@ -3,6 +3,7 @@ import createEmotionCache from "../src/createEmotionCache";
 import CssBaseline from "@mui/material/CssBaseline";
 import Layout from "../components/ArticleLayout";
 import initialTheme from "../src/theme";
+import metadata from "../src/metadata";
 import Seo from "../components/Seo";
 
 import { CacheProvider, EmotionCache } from "@emotion/react";
@@ -48,18 +49,7 @@ export default function MyApp(props: AppProps) {
         <CssBaseline />
         <Layout
           title={pageTitle}
-          pages={[
-            {
-              title: "Hello, world!",
-              slug: "hello",
-              tags: ["hello", "world", "computer", "virus"],
-            },
-            {
-              title: "O projektu",
-              slug: "o-projektu",
-              tags: [],
-            },
-          ]}
+          pages={metadata}
         >
           <Component {...pageProps} setTitle={setPageTitle} />
         </Layout>

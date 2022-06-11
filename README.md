@@ -9,7 +9,7 @@
 - [x] Make tab title
 - [x] Search
   - [x] Make tag search work
-- [ ] Automatically scrape page metadata
+- [x] Automatically scrape page metadata
 - [ ] Add proper 404 navigation
 - [ ] Dark mode
 - [ ] Make a favicon
